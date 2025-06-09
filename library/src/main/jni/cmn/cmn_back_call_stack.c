@@ -202,15 +202,15 @@ void sig_handler_call_stack(int sig, siginfo_t *info, void *context){
 #if defined(__aarch64__)
 void print_remote_call_stack_arm64(const Tracee *tracee){
     struct user_regs_struct regs = tracee->_regs[CURRENT];
-    uint64_t* fp = regs.regs[29]; //x29
+    uint64_t* fp = (uint64_t *) regs.regs[29]; //x29
     LOGD("exception pc:0x%lx,%p,x29:%lx",regs.pc,fp,regs.regs[29])
 
      while (fp != NULL)
     {
-        word_t remote_data =peek_word(tracee,fp + 1);
+        word_t remote_data =peek_word(tracee, (word_t) (fp + 1));
         //  printf("stack:,fp:%p,lr_addr:%p lr:%lx\n",fp,(fp + 1),*((uint64_t *)(fp + 1)));
         LOGD("bt:0x%lx\n",remote_data);
-        fp = peek_word(tracee,fp);
+        fp = (uint64_t *) peek_word(tracee, (word_t) fp);
     }
     LOGD("exception print end--------");
 }
