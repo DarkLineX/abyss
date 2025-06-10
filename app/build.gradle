@@ -7,7 +7,7 @@ android {
     namespace 'com.iofomo.opensrc.abyss'
     defaultConfig {
         applicationId 'com.iofomo.opensrc.abyss'
-        minSdkVersion 29
+        minSdkVersion 25
         targetSdkVersion 35
         versionCode 1
         versionName "1.0"
